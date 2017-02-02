@@ -20,7 +20,7 @@ project_name: helloworld-msa
 # Optional parts
 # Some users might have the MSA modules cloned locally already. For those cases, make this 'false' and
 # we'll not attempt to clone it again
-clone_modules: true
+clone_modules: false
 
 # Define if we should deploy CI/CD capabilities with Jenkins
 deploy_jenkins: false
