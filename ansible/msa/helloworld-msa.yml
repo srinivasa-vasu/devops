@@ -37,14 +37,14 @@
     - name: Compile Java Projects
       shell: "mvn -f {{ workdir }}/{{ item.name }}/pom.xml package"
       with_items: "{{ msa_projects }}"
-      when: "item.project == 'java'" && {{ build_project }}
+      when: "item.project == 'java' && {{ build_project }}"
       tags:
         - compile
 
     - name: NPM install NodeJS Projects
       shell: "npm --prefix {{ workdir }}/{{ item.name }} install {{ workdir }}/{{ item.name }}"
       with_items: "{{ msa_projects }}"
-      when: "item.project == 'node'" && {{ build_project }}
+      when: "item.project == 'node' && {{ build_project }}"
       tags:
         - compile
 
