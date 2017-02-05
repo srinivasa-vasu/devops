@@ -33,6 +33,8 @@ deploy_hawkular_apm: true
 #Define if we should deploy Keycloak for SSO
 deploy_keycloak: true
 
+build_project: false
+
 # Project definition - You don't need to change anything here
 msa_projects:
   - name: hola

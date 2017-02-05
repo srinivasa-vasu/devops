@@ -37,14 +37,14 @@
     - name: Compile Java Projects
       shell: "mvn -f {{ workdir }}/{{ item.name }}/pom.xml package"
       with_items: "{{ msa_projects }}"
-      when: "item.project == 'java'"
+      when: "item.project == 'java'" && {{ build_project }}
       tags:
         - compile
 
     - name: NPM install NodeJS Projects
       shell: "npm --prefix {{ workdir }}/{{ item.name }} install {{ workdir }}/{{ item.name }}"
       with_items: "{{ msa_projects }}"
-      when: "item.project == 'node'"
+      when: "item.project == 'node'" && {{ build_project }}
       tags:
         - compile
 
@@ -220,7 +220,7 @@
 # Install SSO
 
     - name: Create SSO project
-      shell: "oc new-project sso"        
+      shell: "oc new-project sso"
       when: "{{ deploy_keycloak }}"
       register: command_result
       failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
@@ -313,4 +313,3 @@
       shell: "oc project {{ project_name }}"
       tags:
         - openshift
- 
