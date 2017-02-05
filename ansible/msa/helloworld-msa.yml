@@ -37,7 +37,7 @@
     - name: Compile Java Projects
       shell: "mvn -f {{ workdir }}/{{ item.name }}/pom.xml package"
       with_items: "{{ msa_projects }}"
-      when: "item.project == 'java' && {{ build_project }}"
+      when: "item.project == 'java' and build_project
       tags:
         - compile
 
@@ -304,7 +304,7 @@
       register: command_result
       with_items: "{{ msa_projects }}"
       # Avoid projects without probe
-      when: "deploy_keycloak and item.sso_support != False"
+      when: "deploy_keycloak and item.sso_support == true"
       tags:
         - openshift
         - sso

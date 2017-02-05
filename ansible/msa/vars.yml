@@ -43,33 +43,39 @@ msa_projects:
     probe: http://:8080/api/health
     jolokia: false #This project doesn't support Jolokia
     sso_support: true
+    build: false
   - name: frontend
     project: node
     hystrix: false
     probe: False
     jolokia: false #This project doesn't support Jolokia
     sso_support: true
+    build: false
   - name: bonjour
     project: node
     hystrix: false
     probe: http://:8080/api/health
     jolokia: false #This project doesn't support Jolokia
     sso_support: true
+    build: false
   - name: api-gateway
     project: java
     hystrix: true
     probe: http://:8080/health
     jolokia: false
     sso_support: false
+    build: false
   - name: ola
     project: java
     hystrix: true
     probe: http://:8080/api/health
     jolokia: false
     sso_support: true
+    build: false
   - name: aloha
     project: java
     hystrix: true
     probe: http://:8080/api/health
     jolokia: false
     sso_support: true
+    build: false
