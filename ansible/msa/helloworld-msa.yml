@@ -24,11 +24,6 @@
         path: "{{ workdir }}"
         state: directory
  
-    - name: Prepare content for the Workdir
-      copy:
-        src: "{{ src_workdir }}"
-        dest: "{{ workdir }}"
-
     - name: Checkout source code from Github
       git:
         repo: "https://github.com/redhat-helloworld-msa/{{ item.name }}"
