@@ -233,7 +233,7 @@
       git:
         repo: "https://github.com/redhat-helloworld-msa/sso"
         dest: "{{ workdir }}/sso"
-      when: "{{ deploy_keycloak }}"
+      when: "{{ clone_modules }}"
       tags:
         - openshift
         - sso
