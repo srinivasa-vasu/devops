@@ -1,4 +1,5 @@
-workdir: "/Users/srinivasavasu/Documents/Work/GH/helloworld-msa"
+src_workdir: "/Users/srinivasavasu/Documents/Work/GH/helloworld-msa"
+workdir: "{{ ansible_env.HOME }}/helloworld-msa"
 # Define the OpenShift name/ip:port address
 openshift: 10.1.2.2:8443
 # Your OpenShift credentials
