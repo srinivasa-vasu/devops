@@ -19,10 +19,15 @@
       shell: "oc patch scc restricted -p '{\"runAsUser\":{\"type\":\"RunAsAny\"},\"fsGroup\":{\"type\":\"RunAsAny\"}}'"
       when: adjust_scc
 
-    - name: Create Workdir
+    - name: Set Workdir
       file:
         path: "{{ workdir }}"
         state: directory
+ 
+    - name: Prepare content for the Workdir
+      copy:
+        src: "{{ src_workdir }}"
+        dest: "{{ workdir }}"
 
     - name: Checkout source code from Github
       git:
