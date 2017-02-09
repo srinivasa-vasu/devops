@@ -1,4 +1,4 @@
-workdir: "/Users/srinivasavasu/Documents/Work/RH/Demo/ocp/ansible/"
+workdir: "/users/cicd"
 # Define the OpenShift name/ip:port address
 openshift: 10.1.2.2:8443
 # Your OpenShift credentials
