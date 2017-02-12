@@ -29,7 +29,7 @@ deploy_hystrix: true
 #Define if we should deploy ZipKin
 deploy_zipkin: true
 #Define if we should deploy Hawkular APM
-deploy_hawkular_apm: true
+deploy_hawkular_apm: false
 #Define if we should deploy Keycloak for SSO
 deploy_keycloak: false
 
