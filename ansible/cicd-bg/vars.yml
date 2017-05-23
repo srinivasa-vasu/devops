@@ -1,0 +1,31 @@
+workdir: "/Users/srinivasavasu/Documents/Work/RH/Demo/ocp/ansible/"
+# Define the OpenShift name/ip:port address
+openshift: 10.2.1.100:8443
+# Your OpenShift credentials
+username: redhat
+password: redhat@123
+# Administrative credentials
+# To login as system:admin and no password
+#admin_username: system:admin
+#admin_password: "''"
+admin_username: redhat
+admin_password: redhat@123
+# Customize the domain of the project
+domain: 10.2.1.100.xip.io
+# If your application uses a special SCC, uncomment the following line to adjust the SCC
+adjust_scc: false
+# Define the name of the OpenShift cicd main project
+cicd_project_name: cicd
+cicd_template_name: cicd-bg.yaml
+
+# Project definition - You don't need to change anything here
+cicd_projects:
+  - name: cicd
+    displayname: CI/CD
+    description: A CI/CD project
+  - name: dev
+    displayname: Development
+    description: Development namespace to host dev apps
+  - name: stage
+    displayname: Stage
+    description: Staging namespace to host staging apps

@@ -1,0 +1,61 @@
+---
+- name: CICD setup in OpenShift (CDK)
+  hosts: localhost
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: Verify if variables are set
+      fail:
+        msg: "Target directory is not defined. Please edit vars.yml"
+      when: workdir is undefined
+
+    - name: Login in OpenShift as administrator
+      shell: "oc login --insecure-skip-tls-verify=true -u {{ admin_username }} -p {{ admin_password }} {{ openshift }}"
+      tags:
+        - openshift
+        - admin
+
+    - name: Adjust SCC
+      shell: "oc patch scc restricted -p '{\"runAsUser\":{\"type\":\"RunAsAny\"},\"fsGroup\":{\"type\":\"RunAsAny\"}}'"
+      when: adjust_scc
+
+    - name: Navigate to Workdir
+      file:
+        path: "{{ workdir }}"
+        state: directory
+
+    - name: Login in OpenShift
+      shell: "oc login --insecure-skip-tls-verify=true -u {{ username }} -p {{ password }} {{ openshift }}"
+      tags:
+        - openshift
+
+    - name: Create projects for CI/CD demo
+      shell: "oc new-project {{ item.name }} --display-name=\"{{ item.displayname }}\" --description=\"{{ item.description }}\""
+      register: command_result
+      failed_when: "'exists' not in command_result.stderr and command_result.rc != 0"
+      changed_when: "'exists' not in command_result.stderr"
+      with_items: "{{ cicd_projects }}"
+      tags:
+        - openshift
+
+    - name: Define OpenShift project
+      shell: "oc project {{ cicd_project_name }}"
+      tags:
+        - openshift
+
+    - name: Apply build policy
+      shell: "oc policy add-role-to-user edit system:serviceaccount:{{ cicd_project_name }}:jenkins -n {{ item.name }}"
+      with_items: "{{ cicd_projects }}"
+      when: "item.name != '{{ cicd_project_name }}'"
+      tags:
+        - policy
+
+    - name: Use OpenShift CICD project
+      shell: "oc project {{ cicd_project_name }}"
+      tags:
+        - openshift
+
+    - name: Create openshift CICD template with Nexus, SonarQube and Jenkins
+      shell: "oc process -f {{ cicd_template_name }} | oc create -f -"
+      tags:
+        - template
