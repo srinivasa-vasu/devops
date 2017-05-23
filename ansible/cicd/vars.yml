@@ -1,4 +1,4 @@
-workdir: "/Users/srinivasavasu/Documents/Work/RH/Demo/ocp/ansible/"
+workdir: "/users/cicd"
 # Define the OpenShift name/ip:port address
 openshift: 10.1.2.2:8443
 # Your OpenShift credentials
@@ -21,11 +21,11 @@ cicd_template_name: cicd-template.yaml
 # Project definition - You don't need to change anything here
 cicd_projects:
   - name: cicd
-    displayname: CI/CD
+    displayname: ci/cd
     description: A CI/CD project
   - name: dev
-    displayname: Development
-    description: Development namespace to host dev apps
+    displayname: dev
+    description: Development space to host dev apps
   - name: stage
-    displayname: Stage
-    description: Staging namespace to host staging apps
+    displayname: stage
+    description: Staging space to host staging apps
